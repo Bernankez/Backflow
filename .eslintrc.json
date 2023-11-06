@@ -1,0 +1,6 @@
+{
+  "extends": "@bernankez",
+  "ignorePatterns": [
+    "playground/**/*"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "name": "backflow",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@8.10.2",
+  "description": "Let your background flow",
+  "author": {
+    "name": "Cole",
+    "email": "bernankeic@gmail.com",
+    "url": "https://github.com/Bernankez"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Bernankez/Backflow#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bernankez/Backflow.git"
+  },
+  "bugs": "https://github.com/Bernankez/Backflow/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "simple-git-hooks",
+    "prepublishOnly": "pnpm build",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc && vite build",
+    "play": "pnpm -F ./playground dev",
+    "play:build": "pnpm -F ./playground build",
+    "start": "tsx src/index.ts",
+    "release": "bumpp && pnpm publish",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . && pnpm -F ./playground lint",
+    "fix": "eslint . --fix && pnpm -F ./playground fix"
+  },
+  "devDependencies": {
+    "@bernankez/eslint-config": "^0.7.4",
+    "@types/node": "^20.8.10",
+    "bumpp": "^9.2.0",
+    "eslint": "^8.53.0",
+    "lint-staged": "^15.0.2",
+    "rimraf": "^5.0.5",
+    "simple-git-hooks": "^2.9.0",
+    "tsx": "^3.14.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-dts": "^3.6.3",
+    "vitest": "^0.34.6"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
