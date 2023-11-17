@@ -13,6 +13,7 @@ function App() {
     }
     return () => {
       destroy?.();
+      setPlaying(false);
       console.log("Destroyed");
     };
   }, []);

@@ -65,6 +65,5 @@ void main(){
   
   color=hsv2rgb(color);
   
-  // gl_FragColor=vec4(1.,0.,0.,1.);
   gl_FragColor=vec4(color.rgb,1.);
 }
