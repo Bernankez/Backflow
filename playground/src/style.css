@@ -9,8 +9,8 @@ body {
   box-sizing: border-box;
   font-family: Avenir, system-ui, -apple-system, "Segoe UI", Rototo, Emoji, Helvetica, Arial, sans-serif;
 
-  /* background-color:#212121; */
-    -webkit-font-smoothing: antialiased;
+  background-color:#212121;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 

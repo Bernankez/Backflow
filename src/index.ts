@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import fragmentShader from "./shader/fbm.glsl?raw";
+import fragmentShader from "./shader/bg.glsl?raw";
 import { transformColors } from "./colors";
 
 const DEFAULT_VERTEX_SHADER
@@ -28,12 +28,18 @@ export function init(el: HTMLDivElement) {
     resolution: {
       value: new THREE.Vector2(container.clientWidth, container.clientHeight),
     },
+    iResolution: {
+      value: new THREE.Vector2(container.clientWidth, container.clientHeight),
+    },
     time: {
       value: 1.0,
     },
-    albumColorMap: {
-      value: texture,
+    iTime: {
+      value: 1.0,
     },
+    // albumColorMap: {
+    // value: texture,
+    // },
   };
 
   const material = new THREE.ShaderMaterial({
@@ -59,7 +65,10 @@ export function init(el: HTMLDivElement) {
 }
 
 function render() {
-  uniforms && (uniforms.time.value += 0.05);
+  if (uniforms) {
+    uniforms.time.value += 0.05;
+    uniforms.iTime.value += 0.01;
+  }
   renderer.render(scene, camera);
 }
 
@@ -88,6 +97,8 @@ function onWindowResize() {
   if (uniforms) {
     uniforms.resolution.value.x = renderer.domElement.width;
     uniforms.resolution.value.y = renderer.domElement.height;
+    uniforms.iResolution.value.x = renderer.domElement.width;
+    uniforms.iResolution.value.y = renderer.domElement.height;
   }
 }
 
