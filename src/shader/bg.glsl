@@ -2,8 +2,8 @@ uniform vec3 u_resolution; // viewport resolution (in pixels)
 uniform float u_time; // shader playback time (in seconds)
 uniform sampler2D u_color_map; // theme colors
 
-uniform vec3 iResolution;
-uniform float iTime;
+
+out vec4 outColor;
 
 float colormap_red(float x) {
   if(x < 0.) {
@@ -76,7 +76,7 @@ const mat2 mtx = mat2(0.80, 0.60, -0.60, 0.80);
 float fbm(vec2 p) {
   float f = 0.0;
 
-  f += 0.500000 * noise(p + iTime);
+  f += 0.500000 * noise(p + u_time);
   p = mtx * p * 2.02;
   f += 0.031250 * noise(p);
   p = mtx * p * 2.01;
@@ -86,7 +86,7 @@ float fbm(vec2 p) {
   p = mtx * p * 2.01;
   f += 0.062500 * noise(p);
   p = mtx * p * 2.04;
-  f += 0.015625 * noise(p + sin(iTime));
+  f += 0.015625 * noise(p + sin(u_time));
 
   return f / 0.96875;
 }
@@ -96,15 +96,8 @@ float pattern(in vec2 p) {
 }
 
 void main() {
-  vec2 uv = gl_FragCoord.xy / iResolution.x;
+  vec2 uv = gl_FragCoord.xy / u_resolution.x;
   float shade = pattern(uv);
-  gl_FragColor = vec4(colormap(shade).rgb, shade);
+  outColor = vec4(colormap(shade).rgb, shade);
+  // gl_FragColor = vec4(colormap(shade).rgb, shade);
 }
-
-/** SHADERDATA
-{
-  "title": "Base warp fBM",
-  "description": "Noise but Pink",
-  "model": "person"
-}
-*/

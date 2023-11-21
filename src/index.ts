@@ -25,13 +25,13 @@ export function init(el: HTMLDivElement) {
 
   const { texture, size } = generateTexture();
   uniforms = {
-    resolution: {
+    u_resolution: {
       value: new THREE.Vector2(container.clientWidth, container.clientHeight),
     },
     iResolution: {
       value: new THREE.Vector2(container.clientWidth, container.clientHeight),
     },
-    time: {
+    u_time: {
       value: 1.0,
     },
     iTime: {
@@ -46,6 +46,7 @@ export function init(el: HTMLDivElement) {
     uniforms,
     vertexShader: DEFAULT_VERTEX_SHADER,
     fragmentShader,
+    glslVersion: THREE.GLSL3,
   });
   console.log(size);
   const geometry = new THREE.PlaneGeometry(2, 2);
@@ -66,7 +67,7 @@ export function init(el: HTMLDivElement) {
 
 function render() {
   if (uniforms) {
-    uniforms.time.value += 0.05;
+    uniforms.u_time.value += 0.05;
     uniforms.iTime.value += 0.01;
   }
   renderer.render(scene, camera);
@@ -95,8 +96,8 @@ export function isPlaying() {
 function onWindowResize() {
   renderer.setSize(container.clientWidth, container.clientHeight);
   if (uniforms) {
-    uniforms.resolution.value.x = renderer.domElement.width;
-    uniforms.resolution.value.y = renderer.domElement.height;
+    uniforms.u_resolution.value.x = renderer.domElement.width;
+    uniforms.u_resolution.value.y = renderer.domElement.height;
     uniforms.iResolution.value.x = renderer.domElement.width;
     uniforms.iResolution.value.y = renderer.domElement.height;
   }
