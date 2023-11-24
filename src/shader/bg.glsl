@@ -1,9 +1,7 @@
 uniform vec3 u_resolution; // viewport resolution (in pixels)
 uniform float u_time; // shader playback time (in seconds)
-uniform sampler2D u_color_map; // theme colors
-
-
-out vec4 outColor;
+uniform sampler2D u_color_map; // color map
+out vec4 o_color; // out color
 
 float colormap_red(float x) {
   if(x < 0.) {
@@ -45,17 +43,15 @@ vec4 colormap(float x) {
   return vec4(colormap_red(x), colormap_green(x), colormap_blue(x), 1.);
 }
 
-// https://iquilezles.org/articles/warp
-// float noise( in vec2 x )
-// {
+// float noise(vec2 x) {
 //   vec2 p = floor(x);
 //   vec2 f = fract(x);
-//   f = f*f*(3.0-2.0*f);
-//   float a = textureLod(iChannel0,(p+vec2(0.5,0.5))/256.0,0.0).x;
-//   float b = textureLod(iChannel0,(p+vec2(1.5,0.5))/256.0,0.0).x;
-//   float c = textureLod(iChannel0,(p+vec2(0.5,1.5))/256.0,0.0).x;
-//   float d = textureLod(iChannel0,(p+vec2(1.5,1.5))/256.0,0.0).x;
-//   return mix(mix( a, b,f.x), mix( c, d,f.x),f.y);
+//   f = f * f * (3.0 - 2.0 * f);
+//   float a = texture(u_color_map, (p + vec2(0.5, 0.5)) / 256.0, 0.0).x;
+//   float b = texture(u_color_map, (p + vec2(1.5, 0.5)) / 256.0, 0.0).x;
+//   float c = texture(u_color_map, (p + vec2(0.5, 1.5)) / 256.0, 0.0).x;
+//   float d = texture(u_color_map, (p + vec2(1.5, 1.5)) / 256.0, 0.0).x;
+//   return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
 // }
 
 float rand(vec2 n) {
@@ -98,6 +94,7 @@ float pattern(in vec2 p) {
 void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution.x;
   float shade = pattern(uv);
-  outColor = vec4(colormap(shade).rgb, shade);
-  // gl_FragColor = vec4(colormap(shade).rgb, shade);
+  vec3 color = texture(u_color_map, vec2(shade, shade * 0.27), 16.0).rgb;
+  // o_color = vec4(color.rgb, 1.0);
+  // o_color = vec4(colormap(shade).rgb, shade);
 }

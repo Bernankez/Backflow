@@ -37,9 +37,9 @@ export function init(el: HTMLDivElement) {
     iTime: {
       value: 1.0,
     },
-    // albumColorMap: {
-    // value: texture,
-    // },
+    albumColorMap: {
+      value: texture,
+    },
   };
 
   const material = new THREE.ShaderMaterial({
@@ -67,7 +67,7 @@ export function init(el: HTMLDivElement) {
 
 function render() {
   if (uniforms) {
-    uniforms.u_time.value += 0.05;
+    uniforms.u_time.value += 0.01;
     uniforms.iTime.value += 0.01;
   }
   renderer.render(scene, camera);
