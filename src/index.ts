@@ -70,7 +70,7 @@ export function init(el: HTMLDivElement) {
 
 function render() {
   if (uniforms) {
-    uniforms.u_time.value += 0.005;
+    uniforms.u_time.value += 0.01;
     uniforms.iTime.value += 0.01;
   }
   renderer.render(scene, camera);
