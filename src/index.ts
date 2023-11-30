@@ -37,6 +37,9 @@ export function init(el: HTMLDivElement) {
     iTime: {
       value: 1.0,
     },
+    u_color_map: {
+      value: texture,
+    },
     albumColorMap: {
       value: texture,
     },
@@ -67,7 +70,7 @@ export function init(el: HTMLDivElement) {
 
 function render() {
   if (uniforms) {
-    uniforms.u_time.value += 0.01;
+    uniforms.u_time.value += 0.005;
     uniforms.iTime.value += 0.01;
   }
   renderer.render(scene, camera);
