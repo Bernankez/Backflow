@@ -2,7 +2,7 @@
   "name": "backflow",
   "type": "module",
   "version": "0.0.0",
-  "packageManager": "pnpm@8.10.2",
+  "packageManager": "pnpm@8.11.0",
   "description": "Let your background flow",
   "author": {
     "name": "Cole",
