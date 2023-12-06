@@ -1,13 +1,10 @@
+import type { Color } from "../types";
 import { isDefined } from "../utils";
-import { type Color, DEFAULT_K } from ".";
-
-export function extractColors(colors: Color[], k?: number) {
-  return kMeans(colors, k);
-}
+import { DEFAULT_K } from ".";
 
 // reference https://github.com/dstein64/k-means-quantization-js
 // Returns the k-means centroids.
-function kMeans(colors: Color[], k?: number) {
+export function kMeans(colors: Color[], k?: number) {
   if (!isDefined(k)) {
     k = Math.min(DEFAULT_K, colors.length);
   }
